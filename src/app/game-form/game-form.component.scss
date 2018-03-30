@@ -1,0 +1,12 @@
+.game-entry-form {
+    label.required:after {
+        content: ' *';
+    }
+}
+
+:host /deep/ timepicker {
+    table tr.hidden {
+        // Make it so that [showSpinners]="false" has any effect
+        display: none;
+    }
+}

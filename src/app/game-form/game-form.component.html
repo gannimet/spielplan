@@ -1,0 +1,112 @@
+<form
+    class="game-entry-form"
+    #gameForm="ngForm"
+    (ngSubmit)="saveGame()">
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-lg-4">
+            <label
+                for="homeTeamInput"
+                class="required">Home team / first team</label>
+            <input
+                class="form-control"
+                id="homeTeamInput"
+                name="home-team-input"
+                [(ngModel)]="game.homeTeam"
+                [typeahead]="teams"
+                required
+                placeholder="Home team / first team" />
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-lg-4">
+            <label
+                for="awayTeamInput"
+                class="required">Away team / second team</label>
+            <input
+                class="form-control"
+                id="awayTeamInput"
+                name="away-team-input"
+                [(ngModel)]="game.awayTeam"
+                [typeahead]="teams"
+                required
+                placeholder="Away team / second team" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label
+                for="dateInput"
+                class="required">Date</label>
+            <input
+                type="text"
+                id="dateInput"
+                placeholder="Datepicker"
+                class="form-control"
+                bsDatepicker
+                [(ngModel)]="game.date"
+                name="date-input"
+                required
+                [bsConfig]="{containerClass: 'theme-blue'}">
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label for="timeInput">Time</label>
+            <timepicker
+                id="timeInput"
+                [(ngModel)]="game.date"
+                name="time-input"
+                [showMeridian]="false"
+                [minuteStep]="15"
+                [showSpinners]="false"></timepicker>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <label
+                for="competitionInput"
+                class="required">Competition</label>
+            <input
+                class="form-control"
+                id="competitionInput"
+                name="competition-input"
+                placeholder="Competition"
+                required
+                [(ngModel)]="game.competition"
+                [typeahead]="competitions">
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <label for="groupInput">Group / Round</label>
+            <input
+                class="form-control"
+                id="groupInput"
+                name="group-input"
+                placeholder="Group / Round"
+                [(ngModel)]="game.group"
+                [typeahead]="groups">
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <label for="channelInput">Channel</label>
+            <input
+                class="form-control"
+                id="channelInput"
+                name="channel-input"
+                placeholder="Channel"
+                [(ngModel)]="game.channel"
+                [typeahead]="channels">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2 offset-sm-6 offset-md-9 offset-lg-7">
+            <button
+                class="btn btn-primary form-control"
+                type="submit"
+                [disabled]="!gameForm.form.valid">Spiel speichern</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <pre>{{gameDump}}</pre>
+        </div>
+    </div>
+</form>

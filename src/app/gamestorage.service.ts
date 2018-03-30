@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 
+import { Game } from './models/game';
+
 @Injectable()
 export class GamestorageService {
 
   constructor() { }
 
-  public getGames() {
+  public getGames(): Game[] {
       try {
-          return JSON.parse(localStorage.getItem('games'));
+          return JSON.parse(localStorage.getItem('games') || '[]');
       } catch (e) {
           return [];
       }
   }
 
-  public storeGame(homeTeam: string, awayTeam: string) {
+  public storeGame(game: Game) {
       let oldValue = this.getGames();
 
       localStorage.setItem('games', JSON.stringify(
-          oldValue.concat([{
-              homeTeam: homeTeam, awayTeam: awayTeam
-          }])
+          oldValue.concat([game])
       ));
   }
 
