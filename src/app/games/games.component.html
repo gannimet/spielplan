@@ -1,1 +1,9 @@
+<h1>Games</h1>
+
+<ul>
+    <li *ngFor="let game of games">
+        <a href="/game/{{game.id}}">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
+    </li>
+</ul>
+
 <app-game-form></app-game-form>

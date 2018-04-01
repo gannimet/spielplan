@@ -7,7 +7,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AppRoutingModule } from './app-routing.module';
-import { GamestorageService } from './gamestorage.service';
+import { GameStorageService } from './gamestorage.service';
 import { AppComponent } from './app.component';
 import { GamesComponent } from './games/games.component';
 import { GameFormComponent } from './game-form/game-form.component';
@@ -28,7 +28,7 @@ import { GameFormComponent } from './game-form/game-form.component';
         TypeaheadModule.forRoot()
     ],
     providers: [
-        GamestorageService
+        GameStorageService
     ],
     bootstrap: [
         AppComponent

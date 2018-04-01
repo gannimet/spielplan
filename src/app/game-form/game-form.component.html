@@ -48,11 +48,14 @@
                 [bsConfig]="{containerClass: 'theme-blue'}">
         </div>
         <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <label for="timeInput">Time</label>
+            <label
+                for="timeInput"
+                class="required">Time</label>
             <timepicker
                 id="timeInput"
                 [(ngModel)]="game.date"
                 name="time-input"
+                required
                 [showMeridian]="false"
                 [minuteStep]="15"
                 [showSpinners]="false"></timepicker>

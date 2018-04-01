@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Game } from '../models/game';
-import { GamestorageService } from '../gamestorage.service';
+import { GameStorageService } from '../gamestorage.service';
 
 @Component({
     selector: 'app-game-form',
@@ -21,9 +21,9 @@ export class GameFormComponent implements OnInit {
     ];
     channels: string[] = ['ARD', 'ZDF', 'RTL', 'Sat1'];
     teams: string[] = ['Deutschland', 'Südkorea', 'Schweden', 'Mexiko']
-    game: Game = new Game('Deutschland', 'Südkorea', 'FIFA World Cup 2018', new Date());
+    game: Game = new Game();
 
-    constructor(private gameStore: GamestorageService) { }
+    constructor(private gameStore: GameStorageService) { }
 
     ngOnInit() {
     }

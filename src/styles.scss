@@ -5,7 +5,7 @@
         cursor: pointer;
     }
 
-    .ng-invalid:not(form) {
+    .ng-invalid:not(form):not(.ng-untouched) {
         background-color: #ffc5d1;
     }
 }
