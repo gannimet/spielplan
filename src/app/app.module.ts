@@ -6,18 +6,20 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routing/app-routing.module';
 import { GameStorageService } from './gamestorage.service';
 import { AppComponent } from './app.component';
 import { GamesComponent } from './games/games.component';
 import { GameFormComponent } from './game-form/game-form.component';
-
+import { GameResolve } from './routing/game.resolve';
+import { NaviComponent } from './navi/navi.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         GamesComponent,
-        GameFormComponent
+        GameFormComponent,
+        NaviComponent
     ],
     imports: [
         BrowserModule,
@@ -28,7 +30,8 @@ import { GameFormComponent } from './game-form/game-form.component';
         TypeaheadModule.forRoot()
     ],
     providers: [
-        GameStorageService
+        GameStorageService,
+        GameResolve
     ],
     bootstrap: [
         AppComponent

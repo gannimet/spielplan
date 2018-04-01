@@ -12,7 +12,9 @@ export class GamesComponent implements OnInit {
 
     games: Game[];
 
-    constructor(private gameStorage: GameStorageService) { }
+    constructor(
+        private gameStorage: GameStorageService
+    ) { }
 
     ngOnInit() {
         this.gameStorage

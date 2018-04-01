@@ -2,7 +2,7 @@
 
 <ul>
     <li *ngFor="let game of games">
-        <a href="/game/{{game.id}}">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
+        <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
     </li>
 </ul>
 

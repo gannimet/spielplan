@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Game } from '../models/game';
 import { GameStorageService } from '../gamestorage.service';
@@ -23,13 +24,23 @@ export class GameFormComponent implements OnInit {
     teams: string[] = ['Deutschland', 'Südkorea', 'Schweden', 'Mexiko']
     game: Game = new Game();
 
-    constructor(private gameStore: GameStorageService) { }
+    constructor(
+        private gameStore: GameStorageService,
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
+        let resolvedGame = this.route.snapshot.data['game'];
+
+        if (resolvedGame) {
+            this.game = resolvedGame;
+        }
     }
 
     saveGame() {
-        this.gameStore.storeGame(this.game);
+        this.gameStore
+            .storeGame(this.game)
+            .subscribe(games => console.log('new games:', games));
     }
 
     get gameDump() {
