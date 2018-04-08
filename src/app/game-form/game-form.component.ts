@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Game } from '../models/game';
 import { GameStorageService } from '../gamestorage.service';
+import { DeleteGameModalComponent } from '../delete-game-modal/delete-game-modal.component';
 
 @Component({
     selector: 'app-game-form',
@@ -11,40 +13,72 @@ import { GameStorageService } from '../gamestorage.service';
 })
 export class GameFormComponent implements OnInit {
 
-    groups: string[] = [
-        'Group A', 'Group B', 'Group C', 'Group D',
-        'Group E', 'Group F', 'Group G', 'Group H',
-        'Round of 16', 'Quarter Final', 'Semi Final',
-        'Final'
-    ];
-    competitions: string[] = [
-        'FIFA World Cup 2018', 'UEFA Champions League'
-    ];
-    channels: string[] = ['ARD', 'ZDF', 'RTL', 'Sat1'];
-    teams: string[] = ['Deutschland', 'Südkorea', 'Schweden', 'Mexiko']
+    groups: string[] = [];
+    competitions: string[] = [];
+    channels: string[] = [];
+    teams: string[] = [];
     game: Game = new Game();
 
     constructor(
         private gameStore: GameStorageService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router,
+        private modalService: NgbModal
     ) { }
 
     ngOnInit() {
         let resolvedGame = this.route.snapshot.data['game'];
 
+        // Initialize the UI with the resolved game
+        // or leave it empty if this page was called via
+        // /game/new
         if (resolvedGame) {
             this.game = resolvedGame;
         }
+
+        this.gameStore
+            .getAllTeams()
+            .subscribe(team => {
+                this.teams.push(team);
+            });
+        this.gameStore
+            .getAllCompetitions()
+            .subscribe(competition => {
+                this.competitions.push(competition);
+            });
+        this.gameStore
+            .getAllGroups()
+            .subscribe(group => {
+                this.groups.push(group);
+            });
+        this.gameStore
+            .getAllChannels()
+            .subscribe(channel => {
+                this.channels.push(channel);
+            });
     }
 
     saveGame() {
         this.gameStore
             .storeGame(this.game)
-            .subscribe(games => console.log('new games:', games));
+            .subscribe((success) => {
+                this.router.navigate(['games']);
+            });
+    }
+
+    confirmGameDeletion() {
+        const modal = this.modalService.open(DeleteGameModalComponent);
+        modal.componentInstance.game = this.game;
+
+        modal.result.then(this.deleteGame);
     }
 
     get gameDump() {
         return JSON.stringify(this.game).trim();
+    }
+
+    private deleteGame() {
+
     }
 
 }

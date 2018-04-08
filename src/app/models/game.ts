@@ -17,3 +17,20 @@ export class Game {
     }
 
 }
+
+export class GameGrouping {
+
+    constructor(
+        public title: string,
+        public games: Game[]
+    ) {}
+
+}
+
+export enum GroupingCriterion {
+
+    Group = 'group',
+    Date = 'date',
+    Channel = 'channel'
+
+}

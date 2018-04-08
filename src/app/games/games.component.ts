@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GameStorageService } from '../gamestorage.service';
-import { Game } from '../models/game';
+import { Game, GameGrouping, GroupingCriterion } from '../models/game';
 
 @Component({
     selector: 'app-games',
@@ -10,7 +10,9 @@ import { Game } from '../models/game';
 })
 export class GamesComponent implements OnInit {
 
-    games: Game[];
+    games: Game[] = [];
+    gameGroupings: GameGrouping[] = [];
+    groupingCriterion: GroupingCriterion = GroupingCriterion.Date;
 
     constructor(
         private gameStorage: GameStorageService
@@ -19,7 +21,35 @@ export class GamesComponent implements OnInit {
     ngOnInit() {
         this.gameStorage
             .getGames()
-            .subscribe(games => this.games = games);
+            .subscribe((game) => {
+                this.games.push(game);
+            }, undefined, () => {
+                this.games.sort((a, b) => {
+                    if (a.date < b.date) {
+                        return -1;
+                    }
+
+                    return 1;
+                });
+
+                this.gameGroupings.push(new GameGrouping('Group F', this.games));
+            });
+    }
+
+    onCriterionChange() {
+        console.log('new value:', this.groupingCriterion);
+    }
+
+    isGroupCriterionSelected(): boolean {
+        return this.groupingCriterion === GroupingCriterion.Group;
+    }
+
+    isDateCriterionSelected(): boolean {
+        return this.groupingCriterion === GroupingCriterion.Date;
+    }
+
+    isChannelCriterionSelected(): boolean {
+        return this.groupingCriterion === GroupingCriterion.Channel;
     }
 
 }

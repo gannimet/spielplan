@@ -1,11 +1,19 @@
-.content-wrapper {
-    padding: 30px 45px;
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
-    label {
-        cursor: pointer;
-    }
+body {
+    color: map-get($theme-colors, 'dark');
+    background-color: map-get($theme-colors, 'light');
 
-    .ng-invalid:not(form):not(.ng-untouched) {
-        background-color: #ffc5d1;
+    .content-wrapper {
+        padding: 30px 45px;
+
+        label {
+            cursor: pointer;
+        }
+
+        .ng-invalid:not(form):not(.ng-untouched) {
+            background-color: #ffc5d1;
+        }
     }
 }

@@ -1,0 +1,6 @@
+@import '~_variables.scss';
+
+.main-nav {
+    padding: 15px 0 15px 0;
+    background-color: map-get($theme-colors, 'primary-accent');
+}

@@ -14,7 +14,8 @@
                 [(ngModel)]="game.homeTeam"
                 [typeahead]="teams"
                 required
-                placeholder="Home team / first team" />
+                placeholder="Home team / first team"
+                autocomplete="off" />
         </div>
         <div class="form-group col-xs-12 col-sm-6 col-lg-4">
             <label
@@ -27,7 +28,8 @@
                 [(ngModel)]="game.awayTeam"
                 [typeahead]="teams"
                 required
-                placeholder="Away team / second team" />
+                placeholder="Away team / second team"
+                autocomplete="off" />
         </div>
     </div>
 
@@ -42,6 +44,7 @@
                 placeholder="Datepicker"
                 class="form-control"
                 bsDatepicker
+                autocomplete="off"
                 [(ngModel)]="game.date"
                 name="date-input"
                 required
@@ -56,6 +59,7 @@
                 [(ngModel)]="game.date"
                 name="time-input"
                 required
+                autocomplete="off"
                 [showMeridian]="false"
                 [minuteStep]="15"
                 [showSpinners]="false"></timepicker>
@@ -72,6 +76,7 @@
                 id="competitionInput"
                 name="competition-input"
                 placeholder="Competition"
+                autocomplete="off"
                 required
                 [(ngModel)]="game.competition"
                 [typeahead]="competitions">
@@ -83,6 +88,7 @@
                 id="groupInput"
                 name="group-input"
                 placeholder="Group / Round"
+                autocomplete="off"
                 [(ngModel)]="game.group"
                 [typeahead]="groups">
         </div>
@@ -93,17 +99,24 @@
                 id="channelInput"
                 name="channel-input"
                 placeholder="Channel"
+                autocomplete="off"
                 [(ngModel)]="game.channel"
                 [typeahead]="channels">
         </div>
     </div>
 
     <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2 offset-sm-6 offset-md-9 offset-lg-7">
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <button
+                class="btn btn-danger form-control"
+                type="button"
+                (click)="confirmGameDeletion()">Delete game</button>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 offset-md-6 offset-lg-4">
             <button
                 class="btn btn-primary form-control"
                 type="submit"
-                [disabled]="!gameForm.form.valid">Spiel speichern</button>
+                [disabled]="!gameForm.form.valid">Store game</button>
         </div>
     </div>
 </form>
