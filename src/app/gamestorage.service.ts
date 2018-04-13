@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
-import * as _ from 'lodash';
 
 import { Game } from './models/game';
 
@@ -46,6 +45,10 @@ export class GameStorageService {
 
     public getAllChannels(): Observable<string> {
         return this.getAllValuesForKey('channel');
+    }
+
+    public getAllLocations(): Observable<string> {
+        return this.getAllValuesForKey('location');
     }
 
     private getAllValuesForKey(key: string): Observable<string> {

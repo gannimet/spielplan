@@ -44,6 +44,7 @@
                 placeholder="Datepicker"
                 class="form-control"
                 bsDatepicker
+                [bsConfig]="datepickerConfig"
                 autocomplete="off"
                 [(ngModel)]="game.date"
                 name="date-input"
@@ -64,10 +65,7 @@
                 [minuteStep]="15"
                 [showSpinners]="false"></timepicker>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="form-group col-xs-12 col-sm-6 col-lg-4">
             <label
                 for="competitionInput"
                 class="required">Competition</label>
@@ -80,6 +78,21 @@
                 required
                 [(ngModel)]="game.competition"
                 [typeahead]="competitions">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <label
+                for="locationInput">Location</label>
+            <input
+                class="form-control"
+                id="locationInput"
+                name="location-input"
+                placeholder="Location"
+                autocomplete="off"
+                [(ngModel)]="game.location"
+                [typeahead]="locations">
         </div>
         <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <label for="groupInput">Group / Round</label>
@@ -110,6 +123,7 @@
             <button
                 class="btn btn-danger form-control"
                 type="button"
+                *ngIf="isEditMode"
                 (click)="confirmGameDeletion()">Delete game</button>
         </div>
         <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 offset-md-6 offset-lg-4">

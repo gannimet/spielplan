@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 
 import { GameStorageService } from '../gamestorage.service';
 import { Game, GameGrouping, GroupingCriterion } from '../models/game';
@@ -12,7 +13,7 @@ export class GamesComponent implements OnInit {
 
     games: Game[] = [];
     gameGroupings: GameGrouping[] = [];
-    groupingCriterion: GroupingCriterion = GroupingCriterion.Date;
+    groupingCriterion: GroupingCriterion = GroupingCriterion.Group;
 
     constructor(
         private gameStorage: GameStorageService
@@ -32,12 +33,18 @@ export class GamesComponent implements OnInit {
                     return 1;
                 });
 
-                this.gameGroupings.push(new GameGrouping('Group F', this.games));
+                this.regroupGames();
             });
     }
 
-    onCriterionChange() {
-        console.log('new value:', this.groupingCriterion);
+    regroupGames() {
+        this.gameGroupings.length = 0;
+
+        let grouped = _.groupBy(this.games, this.groupingCriterion);
+
+        Object.keys(grouped).forEach(title => {
+            this.gameGroupings.push(new GameGrouping(title, grouped[title]));
+        });
     }
 
     isGroupCriterionSelected(): boolean {
@@ -50,6 +57,10 @@ export class GamesComponent implements OnInit {
 
     isChannelCriterionSelected(): boolean {
         return this.groupingCriterion === GroupingCriterion.Channel;
+    }
+
+    isLocationCriterionSelected(): boolean {
+        return this.groupingCriterion === GroupingCriterion.Location;
     }
 
 }

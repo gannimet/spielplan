@@ -11,7 +11,8 @@ export class Game {
         public date?: Date,
         public hasExactTime?: boolean,
         public group?: string,
-        public channel?: string
+        public channel?: string,
+        public location?: string
     ) {
         this.id = UUID.UUID();
     }
@@ -31,6 +32,7 @@ export enum GroupingCriterion {
 
     Group = 'group',
     Date = 'date',
-    Channel = 'channel'
+    Channel = 'channel',
+    Location = 'location'
 
 }

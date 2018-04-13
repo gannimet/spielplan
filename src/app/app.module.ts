@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { GamesComponent } from './games/games.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { GameResolve } from './routing/game.resolve';
+import { EditModeResolve } from './routing/edit-mode.resolve';
 import { NaviComponent } from './navi/navi.component';
 import { DeleteGameModalComponent } from './delete-game-modal/delete-game-modal.component';
 
@@ -34,7 +35,8 @@ import { DeleteGameModalComponent } from './delete-game-modal/delete-game-modal.
     ],
     providers: [
         GameStorageService,
-        GameResolve
+        GameResolve,
+        EditModeResolve
     ],
     bootstrap: [
         AppComponent

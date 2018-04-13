@@ -16,8 +16,14 @@ export class GameFormComponent implements OnInit {
     groups: string[] = [];
     competitions: string[] = [];
     channels: string[] = [];
+    locations: string[] = [];
     teams: string[] = [];
     game: Game = new Game();
+    isEditMode: boolean;
+    datepickerConfig = {
+        showWeekNumbers: false,
+        minDate: new Date(2018, 5, 1)
+    };
 
     constructor(
         private gameStore: GameStorageService,
@@ -27,6 +33,8 @@ export class GameFormComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.isEditMode = this.route.snapshot.data['isEditMode'];
+
         let resolvedGame = this.route.snapshot.data['game'];
 
         // Initialize the UI with the resolved game
@@ -56,6 +64,11 @@ export class GameFormComponent implements OnInit {
             .subscribe(channel => {
                 this.channels.push(channel);
             });
+        this.gameStore
+            .getAllLocations()
+            .subscribe(location => {
+                this.locations.push(location);
+            });
     }
 
     saveGame() {
@@ -78,7 +91,7 @@ export class GameFormComponent implements OnInit {
     }
 
     private deleteGame() {
-
+        // TODO delete game
     }
 
 }

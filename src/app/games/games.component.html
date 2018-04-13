@@ -13,8 +13,8 @@
                 id="option1"
                 autocomplete="off"
                 [checked]="isGroupCriterionSelected()"
-                (change)="onCriterionChange()">
-                Group
+                (change)="regroupGames()">
+                Group/Round
         </label>
         <label
             class="btn btn-info"
@@ -27,8 +27,22 @@
                 id="option2"
                 autocomplete="off"
                 [checked]="isDateCriterionSelected()"
-                (change)="onCriterionChange()">
+                (change)="regroupGames()">
                 Date
+        </label>
+        <label
+            class="btn btn-info"
+            [ngClass]="{ 'active': isLocationCriterionSelected() }">
+            <input
+                type="radio"
+                [(ngModel)]="groupingCriterion"
+                name="groupingCriterion"
+                value="location"
+                id="option3"
+                autocomplete="off"
+                [checked]="isLocationCriterionSelected()"
+                (change)="regroupGames()">
+                Location
         </label>
         <label
             class="btn btn-info"
@@ -41,7 +55,7 @@
                 id="option3"
                 autocomplete="off"
                 [checked]="isChannelCriterionSelected()"
-                (change)="onCriterionChange()">
+                (change)="regroupGames()">
                 Channel
         </label>
     </div>
@@ -59,6 +73,7 @@
             <th>Time</th>
             <th>Game</th>
             <th>Round</th>
+            <th>Location</th>
             <th>Channel</th>
         </tr>
     </thead>
@@ -70,6 +85,7 @@
                 <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
             </td>
             <td>{{ game.group }}</td>
+            <td>{{ game.location }}</td>
             <td>{{ game.channel }}</td>
         </tr>
     </tbody>
