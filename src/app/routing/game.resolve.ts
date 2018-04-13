@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Game } from '../models/game';
@@ -9,7 +9,6 @@ import { GameStorageService } from '../gamestorage.service';
 export class GameResolve implements Resolve<Game> {
 
   constructor(
-      private router: Router,
       private gameStore: GameStorageService
   ) { }
 
