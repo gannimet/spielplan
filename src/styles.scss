@@ -3,7 +3,6 @@
 
 body {
     color: map-get($theme-colors, 'dark');
-    background-color: map-get($theme-colors, 'light');
 
     .content-wrapper {
         padding: 30px 45px;

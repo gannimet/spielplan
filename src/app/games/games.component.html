@@ -1,6 +1,7 @@
-<h1>Games</h1>
-
 <section class="game-list-controls">
+    <p>
+        Group games by:
+    </p>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label
             class="btn btn-info"
@@ -23,7 +24,7 @@
                 type="radio"
                 [(ngModel)]="groupingCriterion"
                 name="groupingCriterion"
-                value="date"
+                value="baseDate"
                 id="option2"
                 autocomplete="off"
                 [checked]="isDateCriterionSelected()"
@@ -61,39 +62,30 @@
     </div>
 </section>
 
-<table
-    *ngFor="let grouping of gameGroupings"
-    class="table table-striped">
-    <thead>
-        <tr>
-            <th colspan="5">{{ grouping.title }}</th>
-        </tr>
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Game</th>
-            <th>Round</th>
-            <th>Location</th>
-            <th>Channel</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let game of grouping.games">
-            <td>{{ game.date | date: 'dd.MM.yyyy' }}</td>
-            <td>{{ game.date | date: 'HH:mm' }}</td>
-            <td>
-                <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
-            </td>
-            <td>{{ game.group }}</td>
-            <td>{{ game.location }}</td>
-            <td>{{ game.channel }}</td>
-        </tr>
-    </tbody>
-</table>
-
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-danger">Danger</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-default">Default</button>
+<section *ngFor="let grouping of gameGroupings">
+    <h3>{{ grouping.title }}</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Game</th>
+                <th>Round</th>
+                <th>Location</th>
+                <th>Channel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let game of grouping.games">
+                <td>{{ game.date | date: 'dd.MM.yyyy' }}</td>
+                <td>{{ game.date | date: 'HH:mm' }}</td>
+                <td>
+                    <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
+                </td>
+                <td>{{ game.group }}</td>
+                <td>{{ game.location }}</td>
+                <td>{{ game.channel }}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

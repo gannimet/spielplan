@@ -2,19 +2,32 @@ import { UUID } from 'angular2-uuid';
 
 export class Game {
 
-    readonly id: string;
-
     constructor(
         public homeTeam?: string,
         public awayTeam?: string,
         public competition?: string,
         public date?: Date,
-        public hasExactTime?: boolean,
         public group?: string,
         public channel?: string,
-        public location?: string
+        public location?: string,
+        public readonly id?: string,
     ) {
-        this.id = UUID.UUID();
+        if (id) {
+            this.id = id;
+        } else {
+            this.id = UUID.UUID();
+        }
+    }
+
+    get baseDate(): Date {
+        if (this.date) {
+            return new Date(
+                this.date.getFullYear(),
+                this.date.getMonth(),
+                this.date.getDate(),
+                0, 0, 0
+            );
+        }
     }
 
 }
@@ -31,7 +44,7 @@ export class GameGrouping {
 export enum GroupingCriterion {
 
     Group = 'group',
-    Date = 'date',
+    Date = 'baseDate',
     Channel = 'channel',
     Location = 'location'
 

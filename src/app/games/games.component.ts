@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { DatePipe } from '@angular/common';
 
 import { GameStorageService } from '../gamestorage.service';
 import { Game, GameGrouping, GroupingCriterion } from '../models/game';
@@ -16,7 +17,8 @@ export class GamesComponent implements OnInit {
     groupingCriterion: GroupingCriterion = GroupingCriterion.Group;
 
     constructor(
-        private gameStorage: GameStorageService
+        private gameStorage: GameStorageService,
+        private datePipe: DatePipe
     ) { }
 
     ngOnInit() {
@@ -37,30 +39,44 @@ export class GamesComponent implements OnInit {
             });
     }
 
-    regroupGames() {
+    public regroupGames() {
         this.gameGroupings.length = 0;
 
         let grouped = _.groupBy(this.games, this.groupingCriterion);
 
-        Object.keys(grouped).forEach(title => {
-            this.gameGroupings.push(new GameGrouping(title, grouped[title]));
+        Object.keys(grouped).forEach(identifier => {
+            this.gameGroupings.push(new GameGrouping(
+                this.getGroupTitle(identifier), grouped[identifier]
+            ));
         });
     }
 
-    isGroupCriterionSelected(): boolean {
+    public isGroupCriterionSelected(): boolean {
         return this.groupingCriterion === GroupingCriterion.Group;
     }
 
-    isDateCriterionSelected(): boolean {
+    public isDateCriterionSelected(): boolean {
         return this.groupingCriterion === GroupingCriterion.Date;
     }
 
-    isChannelCriterionSelected(): boolean {
+    public isChannelCriterionSelected(): boolean {
         return this.groupingCriterion === GroupingCriterion.Channel;
     }
 
-    isLocationCriterionSelected(): boolean {
+    public isLocationCriterionSelected(): boolean {
         return this.groupingCriterion === GroupingCriterion.Location;
+    }
+
+    private getGroupTitle(groupIdentifier): string {
+        if (groupIdentifier === 'undefined') {
+            return 'Keine Angabe';
+        }
+
+        if (this.isDateCriterionSelected()) {
+            return this.datePipe.transform(groupIdentifier, 'EEEE, MMMM dd');
+        }
+
+        return groupIdentifier;
     }
 
 }

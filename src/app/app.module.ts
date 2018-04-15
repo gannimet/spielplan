@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { GameStorageService } from './gamestorage.service';
@@ -36,7 +37,8 @@ import { DeleteGameModalComponent } from './delete-game-modal/delete-game-modal.
     providers: [
         GameStorageService,
         GameResolve,
-        EditModeResolve
+        EditModeResolve,
+        DatePipe
     ],
     bootstrap: [
         AppComponent
