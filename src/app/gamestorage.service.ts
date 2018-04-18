@@ -77,6 +77,7 @@ export class GameStorageService {
             jsonObj.group,
             jsonObj.channel,
             jsonObj.location,
+            jsonObj.result,
             jsonObj.id
         );
     }

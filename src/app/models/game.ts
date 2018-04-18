@@ -10,12 +10,19 @@ export class Game {
         public group?: string,
         public channel?: string,
         public location?: string,
-        public readonly id?: string,
+        public result?: GameResult,
+        public readonly id?: string
     ) {
         if (id) {
             this.id = id;
         } else {
             this.id = UUID.UUID();
+        }
+
+        if (!result) {
+            this.result = new GameResult();
+            this.result.homeGoals = 5;
+            this.result.awayGoals = 2;
         }
     }
 
@@ -29,6 +36,13 @@ export class Game {
             );
         }
     }
+
+}
+
+export class GameResult {
+
+    public homeGoals: number;
+    public awayGoals: number;
 
 }
 
