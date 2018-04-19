@@ -10,7 +10,7 @@ export class Game {
         public group?: string,
         public channel?: string,
         public location?: string,
-        public result?: GameResult,
+        public result: GameResult = new GameResult(),
         public readonly id?: string
     ) {
         if (id) {
@@ -18,12 +18,20 @@ export class Game {
         } else {
             this.id = UUID.UUID();
         }
+    }
 
-        if (!result) {
-            this.result = new GameResult();
-            this.result.homeGoals = 5;
-            this.result.awayGoals = 2;
-        }
+    public static constructGameObject(jsonObj: any): Game {
+        return new Game(
+            jsonObj.homeTeam,
+            jsonObj.awayTeam,
+            jsonObj.competition,
+            new Date(jsonObj.date),
+            jsonObj.group,
+            jsonObj.channel,
+            jsonObj.location,
+            jsonObj.result,
+            jsonObj.id
+        );
     }
 
     get baseDate(): Date {
@@ -41,8 +49,10 @@ export class Game {
 
 export class GameResult {
 
-    public homeGoals: number;
-    public awayGoals: number;
+    constructor(
+        public homeGoals?: number,
+        public awayGoals?: number
+    ) {}
 
 }
 

@@ -17,6 +17,7 @@ import { EditModeResolve } from './routing/edit-mode.resolve';
 import { NaviComponent } from './navi/navi.component';
 import { DeleteGameModalComponent } from './delete-game-modal/delete-game-modal.component';
 import { GameResultInputComponent } from './game-result-input/game-result-input.component';
+import { GameResultPipe } from './game-result.pipe';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { GameResultInputComponent } from './game-result-input/game-result-input.
         GameFormComponent,
         NaviComponent,
         DeleteGameModalComponent,
-        GameResultInputComponent
+        GameResultInputComponent,
+        GameResultPipe
     ],
     imports: [
         BrowserModule,

@@ -12,7 +12,7 @@ export class GameStorageService {
         let games: Game[] = [];
 
         Object.keys(localStorage).forEach((gameId) => {
-            let game = this.constructGameObject(
+            let game = Game.constructGameObject(
                 JSON.parse(localStorage.getItem(gameId))
             );
 
@@ -23,7 +23,7 @@ export class GameStorageService {
     }
 
     public getGameById(id: string): Observable<Game> {
-        let game = this.constructGameObject(
+        let game = Game.constructGameObject(
             JSON.parse(localStorage.getItem(id))
         );
 
@@ -66,20 +66,6 @@ export class GameStorageService {
                 return game[key];
             })
             .distinct();
-    }
-
-    private constructGameObject(jsonObj: any): Game {
-        return new Game(
-            jsonObj.homeTeam,
-            jsonObj.awayTeam,
-            jsonObj.competition,
-            new Date(jsonObj.date),
-            jsonObj.group,
-            jsonObj.channel,
-            jsonObj.location,
-            jsonObj.result,
-            jsonObj.id
-        );
     }
 
 }

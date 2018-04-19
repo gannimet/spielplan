@@ -1,4 +1,4 @@
-import { Component, Optional, OnInit, Inject, forwardRef } from '@angular/core';
+import { Component, Optional, Inject, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { GameResult } from '../models/game';
@@ -13,15 +13,11 @@ import { GameResult } from '../models/game';
         multi: true
     }]
 })
-export class GameResultInputComponent implements OnInit, ControlValueAccessor {
+export class GameResultInputComponent implements ControlValueAccessor {
 
-    result: GameResult;
+    result = new GameResult();
     homeGoals: number;
     awayGoals: number;
-
-    ngOnInit() {
-        this.result = new GameResult();
-    }
 
     writeValue(value: any) {
         this.result = value;

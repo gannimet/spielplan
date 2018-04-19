@@ -70,6 +70,7 @@
                 <th>Date</th>
                 <th>Time</th>
                 <th>Game</th>
+                <th>Result</th>
                 <th>Round</th>
                 <th>Location</th>
                 <th>Channel</th>
@@ -82,6 +83,7 @@
                 <td>
                     <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
                 </td>
+                <td>{{ game.result | gameResult }}</td>
                 <td>{{ game.group }}</td>
                 <td>{{ game.location }}</td>
                 <td>{{ game.channel }}</td>
