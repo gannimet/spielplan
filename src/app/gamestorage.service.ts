@@ -36,6 +36,12 @@ export class GameStorageService {
         return Observable.of(true);
     }
 
+    public removeGame(game: Game): Observable<boolean> {
+        localStorage.removeItem(game.id);
+
+        return Observable.of(true);
+    }
+
     public getAllTeams(): Observable<string> {
         return Observable.merge(
             this.getAllValuesForKey('homeTeam'),

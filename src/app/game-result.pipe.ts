@@ -7,7 +7,7 @@ import { GameResult } from './models/game';
 })
 export class GameResultPipe implements PipeTransform {
 
-    transform(value: GameResult, args?: any): string {
+    transform(value: GameResult): string {
         if (!value || value.homeGoals == null || value.awayGoals == null) {
             return '';
         }

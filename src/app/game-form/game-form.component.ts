@@ -74,7 +74,7 @@ export class GameFormComponent implements OnInit {
     saveGame() {
         this.gameStore
             .storeGame(this.game)
-            .subscribe((success) => {
+            .subscribe(success => {
                 this.router.navigate(['games']);
             });
     }
@@ -83,7 +83,7 @@ export class GameFormComponent implements OnInit {
         const modal = this.modalService.open(DeleteGameModalComponent);
         modal.componentInstance.game = this.game;
 
-        modal.result.then(this.deleteGame);
+        modal.result.then(() => this.deleteGame());
     }
 
     get gameDump() {
@@ -91,7 +91,13 @@ export class GameFormComponent implements OnInit {
     }
 
     private deleteGame() {
-        // TODO delete game
+        this.gameStore
+            .removeGame(this.game)
+            .subscribe(success => {
+                this.router.navigate(['games']);
+            }, error => {
+                console.log(`error deleting game: ${error}`);
+            });
     }
 
 }
