@@ -83,7 +83,7 @@
                 <td>
                     <a [routerLink]="['/game', game.id]">{{ game.homeTeam }} - {{ game.awayTeam }}</a>
                 </td>
-                <td>{{ game.result | gameResult }}</td>
+                <td>{{ game.result | goalRatio }}</td>
                 <td>{{ game.group }}</td>
                 <td>{{ game.location }}</td>
                 <td>{{ game.channel }}</td>

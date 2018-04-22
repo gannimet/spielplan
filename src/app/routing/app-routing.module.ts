@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GamesComponent } from '../games/games.component';
 import { GameFormComponent } from '../game-form/game-form.component';
+import { TableCalculatorComponent } from '../table-calculator/table-calculator.component';
 import { GameResolve } from './game.resolve';
 import { EditModeResolve } from './edit-mode.resolve';
 
@@ -26,6 +27,9 @@ const routes: Routes = [{
     path: '',
     redirectTo: '/games',
     pathMatch: 'full'
+}, {
+    path: 'table-calculator',
+    component: TableCalculatorComponent
 }];
 
 @NgModule({

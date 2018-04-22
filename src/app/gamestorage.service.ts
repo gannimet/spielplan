@@ -65,6 +65,14 @@ export class GameStorageService {
         return this.getAllValuesForKey('location');
     }
 
+    public getAllGamesFromGroup(group: string): Observable<Game> {
+        return this
+            .getGames()
+            .filter(game => {
+                return game.group === group;
+            });
+    }
+
     private getAllValuesForKey(key: string): Observable<string> {
         return this
             .getGames()

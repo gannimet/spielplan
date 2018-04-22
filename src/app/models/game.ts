@@ -29,9 +29,20 @@ export class Game {
             jsonObj.group,
             jsonObj.channel,
             jsonObj.location,
-            jsonObj.result,
+            Game.constructResultObject(jsonObj.result),
             jsonObj.id
         );
+    }
+
+    private static constructResultObject(jsonObj: any): GameResult {
+        let theResult = new GameResult();;
+
+        if (jsonObj) {
+            theResult.homeGoals = jsonObj.homeGoals;
+            theResult.awayGoals = jsonObj.awayGoals;
+        }
+
+        return theResult;
     }
 
     get baseDate(): Date {
@@ -53,6 +64,30 @@ export class GameResult {
         public homeGoals?: number,
         public awayGoals?: number
     ) {}
+
+    get resultType(): GameResultType {
+        if (!this.isComplete) {
+            return undefined;
+        }
+
+        if (this.homeGoals > this.awayGoals) {
+            return GameResultType.HomeWin;
+        } else if (this.homeGoals < this.awayGoals) {
+            return GameResultType.AwayWin;
+        } else {
+            return GameResultType.Draw;
+        }
+    }
+
+    get isComplete(): boolean {
+        return this.homeGoals != null && this.awayGoals != null;
+    }
+
+}
+
+export enum GameResultType {
+
+    HomeWin, AwayWin, Draw
 
 }
 
