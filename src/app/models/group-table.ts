@@ -1,10 +1,12 @@
 import * as _ from 'lodash';
 
 import { Game, GameResultType } from './game';
+import { GroupTableComparator } from './table-comparator';
 
 export class GroupTable {
 
     public tableEntries: GroupTableEntry[] = [];
+    private games: Game[] = [];
 
     public recordGameData(game: Game) {
         let homeTeamEntry = this.getEntryForTeam(game.homeTeam);
@@ -28,6 +30,9 @@ export class GroupTable {
             return;
         }
 
+        // Remember game for later use
+        this.games.push(game);
+
         homeTeamEntry.goalsFor += game.result.homeGoals;
         homeTeamEntry.goalsAgainst += game.result.awayGoals;
         awayTeamEntry.goalsFor += game.result.awayGoals;
@@ -43,12 +48,46 @@ export class GroupTable {
         }
     }
 
-    public rankTeamEntries(sortFn: (a: GroupTableEntry, b: GroupTableEntry) => number) {
-        this.tableEntries = this.tableEntries.sort(sortFn);
+    public rankTeamEntries(comparator: GroupTableComparator) {
+        this._rankTeamEntries(comparator, true);
+    }
+
+    private _rankTeamEntries(comparator: GroupTableComparator, firstLevel: boolean) {
+        let firstLevelRankedEntries = this.tableEntries.sort(comparator.compare);
+
+        if (firstLevel) {
+            let identityGroups = _.groupBy(firstLevelRankedEntries, comparator.getIdentityToken);
+
+            Object.keys(identityGroups).forEach(identifier => {
+                let groupEntries = identityGroups[identifier];
+
+                if (groupEntries.length > 1) {
+                    // Collect all games of affected teams and rank this "mini league" again
+                    let relevantTeams = groupEntries.map(entry => entry.team);
+                    let relevantGames = this.getAllGamesWithTeams(relevantTeams);
+                    let miniLeague = new GroupTable();
+
+                    for (let game of relevantGames) {
+                        miniLeague.recordGameData(game);
+                    }
+
+                    miniLeague._rankTeamEntries(comparator, false);
+                }
+            });
+        }
+
+        this.tableEntries = firstLevelRankedEntries;
     }
 
     private getEntryForTeam(teamName: string): GroupTableEntry {
         return _.find(this.tableEntries, { team: teamName });
+    }
+
+    private getAllGamesWithTeams(teams: string[]): Game[] {
+        return this.games.filter(game => {
+            return _.includes(teams, game.homeTeam) ||
+                _.includes(teams, game.awayTeam);
+        });
     }
 
 }
