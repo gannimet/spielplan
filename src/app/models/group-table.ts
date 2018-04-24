@@ -33,18 +33,21 @@ export class GroupTable {
         // Remember game for later use
         this.games.push(game);
 
+        // Collect actual data from the game
         homeTeamEntry.goalsFor += game.result.homeGoals;
         homeTeamEntry.goalsAgainst += game.result.awayGoals;
         awayTeamEntry.goalsFor += game.result.awayGoals;
         awayTeamEntry.goalsAgainst += game.result.homeGoals;
 
         if (game.result.resultType === GameResultType.HomeWin) {
-            homeTeamEntry.points += 3;
+            homeTeamEntry.wins++;
+            awayTeamEntry.losses++;
         } else if (game.result.resultType === GameResultType.Draw) {
-            homeTeamEntry.points += 1;
-            awayTeamEntry.points += 1;
+            homeTeamEntry.draws++;
+            awayTeamEntry.draws++;
         } else {
-            awayTeamEntry.points += 3;
+            awayTeamEntry.wins++;
+            homeTeamEntry.losses++;
         }
     }
 
@@ -55,26 +58,26 @@ export class GroupTable {
     private _rankTeamEntries(comparator: GroupTableComparator, firstLevel: boolean) {
         let firstLevelRankedEntries = this.tableEntries.sort(comparator.compare);
 
-        if (firstLevel) {
-            let identityGroups = _.groupBy(firstLevelRankedEntries, comparator.getIdentityToken);
-
-            Object.keys(identityGroups).forEach(identifier => {
-                let groupEntries = identityGroups[identifier];
-
-                if (groupEntries.length > 1) {
-                    // Collect all games of affected teams and rank this "mini league" again
-                    let relevantTeams = groupEntries.map(entry => entry.team);
-                    let relevantGames = this.getAllGamesWithTeams(relevantTeams);
-                    let miniLeague = new GroupTable();
-
-                    for (let game of relevantGames) {
-                        miniLeague.recordGameData(game);
-                    }
-
-                    miniLeague._rankTeamEntries(comparator, false);
-                }
-            });
-        }
+        // if (firstLevel) {
+        //     let identityGroups = _.groupBy(firstLevelRankedEntries, comparator.getIdentityToken);
+        //
+        //     Object.keys(identityGroups).forEach(identifier => {
+        //         let groupEntries = identityGroups[identifier];
+        //
+        //         if (groupEntries.length > 1) {
+        //             // Collect all games of affected teams and rank this "mini league" again
+        //             let relevantTeams = groupEntries.map(entry => entry.team);
+        //             let relevantGames = this.getAllGamesWithTeams(relevantTeams);
+        //             let miniLeague = new GroupTable();
+        //
+        //             for (let game of relevantGames) {
+        //                 miniLeague.recordGameData(game);
+        //             }
+        //
+        //             miniLeague._rankTeamEntries(comparator, false);
+        //         }
+        //     });
+        // }
 
         this.tableEntries = firstLevelRankedEntries;
     }
@@ -94,10 +97,12 @@ export class GroupTable {
 
 export class GroupTableEntry {
 
-    public points: number = 0;
     public goalsFor: number = 0;
     public goalsAgainst: number = 0;
     public position: number = 0;
+    public wins: number = 0;
+    public draws: number = 0;
+    public losses: number = 0;
 
     constructor(
         public readonly team: string
@@ -105,6 +110,14 @@ export class GroupTableEntry {
 
     get goalDifference(): number {
         return this.goalsFor - this.goalsAgainst;
+    }
+
+    get played(): number {
+        return this.wins + this.draws + this.losses;
+    }
+
+    get points(): number {
+        return 3 * this.wins + this.draws;
     }
 
 }

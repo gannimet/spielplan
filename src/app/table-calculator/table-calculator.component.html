@@ -32,13 +32,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let entry of groupTable.tableEntries">
-            <td>{{ entry.position }}</td>
+        <tr *ngFor="let entry of groupTable.tableEntries; let position = index">
+            <td>{{ position + 1 }}</td>
             <td>{{ entry.team }}</td>
-            <td>TBC</td>
-            <td>TBC</td>
-            <td>TBC</td>
-            <td>TBC</td>
+            <td>{{ entry.played }}</td>
+            <td>{{ entry.wins }}</td>
+            <td>{{ entry.draws }}</td>
+            <td>{{ entry.losses }}</td>
             <td>{{ entry.points }}</td>
             <td>{{ entry.goalsFor }}</td>
             <td>{{ entry.goalsAgainst }}</td>
