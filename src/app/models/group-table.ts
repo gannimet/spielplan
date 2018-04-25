@@ -99,7 +99,6 @@ export class GroupTableEntry {
 
     public goalsFor: number = 0;
     public goalsAgainst: number = 0;
-    public position: number = 0;
     public wins: number = 0;
     public draws: number = 0;
     public losses: number = 0;
