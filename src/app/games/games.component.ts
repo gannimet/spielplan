@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 
 import { GameStorageService } from '../gamestorage.service';
 import { Game, GameGrouping, GroupingCriterion } from '../models/game';
+import { SearchFilterQueryService } from '../search-filter-query.service';
 
 @Component({
     selector: 'app-games',
@@ -15,9 +16,11 @@ export class GamesComponent implements OnInit {
     games: Game[] = [];
     gameGroupings: GameGrouping[] = [];
     groupingCriterion: GroupingCriterion = GroupingCriterion.Group;
+    filterQuery: string;
 
     constructor(
         private gameStorage: GameStorageService,
+        private queryService: SearchFilterQueryService,
         private datePipe: DatePipe
     ) { }
 
@@ -37,6 +40,10 @@ export class GamesComponent implements OnInit {
 
                 this.regroupGames();
             });
+
+        this.queryService.change.subscribe(newQuery => {
+            this.filterQuery = newQuery;
+        });
     }
 
     public regroupGames() {

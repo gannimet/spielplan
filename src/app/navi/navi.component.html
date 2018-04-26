@@ -1,19 +1,33 @@
-<nav class="main-nav">
-    <ul class="nav">
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                [routerLink]="['/games']">Game list</a>
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                [routerLink]="['/table-calculator']">Table Calculator</a>
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link btn btn-success"
-                [routerLink]="['/game', 'new']">Enter new game</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-expand-md main-nav">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    [routerLink]="['/games']">Game list</a>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    [routerLink]="['/table-calculator']">Table Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link btn btn-success"
+                    [routerLink]="['/game', 'new']">Enter new game</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <input
+                    type="text"
+                    class="search-filter-input"
+                    [ngModel]="searchFilterQuery"
+                    (ngModelChange)="queryChanged($event)">
+            </li>
+        </ul>
+    </div>
 </nav>

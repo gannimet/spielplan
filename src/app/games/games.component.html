@@ -77,7 +77,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let game of grouping.games">
+            <tr *ngFor="let game of (grouping.games | filter: filterQuery)">
                 <td>{{ game.date | date: 'dd.MM.yyyy' }}</td>
                 <td>{{ game.date | date: 'HH:mm' }}</td>
                 <td>

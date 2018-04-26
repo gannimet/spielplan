@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { GameStorageService } from './gamestorage.service';
 import { TableCalculatorService } from './table-calculator.service';
+import { SearchFilterQueryService } from './search-filter-query.service';
 import { AppComponent } from './app.component';
 import { GamesComponent } from './games/games.component';
 import { GameFormComponent } from './game-form/game-form.component';
@@ -20,6 +21,7 @@ import { DeleteGameModalComponent } from './delete-game-modal/delete-game-modal.
 import { GameResultInputComponent } from './game-result-input/game-result-input.component';
 import { GoalRatioPipe } from './goal-ratio.pipe';
 import { TableCalculatorComponent } from './table-calculator/table-calculator.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,8 @@ import { TableCalculatorComponent } from './table-calculator/table-calculator.co
         DeleteGameModalComponent,
         GameResultInputComponent,
         GoalRatioPipe,
-        TableCalculatorComponent
+        TableCalculatorComponent,
+        FilterPipe
     ],
     imports: [
         BrowserModule,
@@ -44,6 +47,7 @@ import { TableCalculatorComponent } from './table-calculator/table-calculator.co
     providers: [
         GameStorageService,
         TableCalculatorService,
+        SearchFilterQueryService,
         GameResolve,
         EditModeResolve,
         DatePipe
