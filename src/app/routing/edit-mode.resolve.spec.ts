@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { EditMode.ResolveService } from './edit-mode.resolve.service';
+import { EditModeResolve } from './edit-mode.resolve';
 
-describe('EditMode.ResolveService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [EditMode.ResolveService]
+describe('EditModeResolve', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [EditModeResolve]
+        });
     });
-  });
 
-  it('should be created', inject([EditMode.ResolveService], (service: EditMode.ResolveService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([EditModeResolve], (service: EditModeResolve) => {
+        expect(service).toBeTruthy();
+    }));
 });

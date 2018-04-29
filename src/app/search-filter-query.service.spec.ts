@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SearchFilterQueryServiceService } from './search-filter-query-service.service';
+import { SearchFilterQueryService } from './search-filter-query.service';
 
-describe('SearchFilterQueryServiceService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [SearchFilterQueryServiceService]
+describe('SearchFilterQueryService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [SearchFilterQueryService]
+        });
     });
-  });
 
-  it('should be created', inject([SearchFilterQueryServiceService], (service: SearchFilterQueryServiceService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([SearchFilterQueryService], (service: SearchFilterQueryService) => {
+        expect(service).toBeTruthy();
+    }));
 });

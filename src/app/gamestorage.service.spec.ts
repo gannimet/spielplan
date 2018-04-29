@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GamestorageService } from './gamestorage.service';
+import { GameStorageService } from './gamestorage.service';
 
-describe('GamestorageService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [GamestorageService]
+describe('GameStorageService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [GameStorageService]
+        });
     });
-  });
 
-  it('should be created', inject([GamestorageService], (service: GamestorageService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([GameStorageService], (service: GameStorageService) => {
+        expect(service).toBeTruthy();
+    }));
 });

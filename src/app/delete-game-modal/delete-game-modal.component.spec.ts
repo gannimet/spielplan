@@ -1,25 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { DeleteGameModalComponent } from './delete-game-modal.component';
 
 describe('DeleteGameModalComponent', () => {
-  let component: DeleteGameModalComponent;
-  let fixture: ComponentFixture<DeleteGameModalComponent>;
+    let component: DeleteGameModalComponent;
+    let fixture: ComponentFixture<DeleteGameModalComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DeleteGameModalComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        let mockActiveModal = {};
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteGameModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        TestBed.configureTestingModule({
+            declarations: [ DeleteGameModalComponent ],
+            providers: [{
+                provide: NgbActiveModal,
+                useValue: mockActiveModal
+            }]
+        })
+        .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DeleteGameModalComponent);
+        component = fixture.componentInstance;
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
