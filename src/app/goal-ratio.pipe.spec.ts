@@ -16,4 +16,16 @@ describe('GameResultPipe', () => {
         let result = new GameResult(2, 3);
         expect(pipe.transform(result)).toEqual('2:3');
     });
+
+    it('should return empty string for incomplete results', () => {
+        expect(pipe.transform(new GameResult())).toEqual('');
+
+        let r1 = new GameResult();
+        r1.homeGoals = 3;
+        expect(pipe.transform(r1)).toEqual('');
+
+        let r2 = new GameResult();
+        r2.awayGoals = 1;
+        expect(pipe.transform(r2)).toEqual('');
+    });
 });

@@ -1,14 +1,15 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from "rxjs";
 
 @Injectable()
 export class SearchFilterQueryService {
 
-    change: EventEmitter<string> = new EventEmitter();
+    change: Subject<string> = new Subject();
 
     constructor() { }
 
     queryChanged(newQuery) {
-        this.change.emit(newQuery);
+        this.change.next(newQuery);
     }
 
 }
